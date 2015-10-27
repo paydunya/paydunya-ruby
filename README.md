@@ -162,7 +162,7 @@ Vous pouvez transférer des fonds vers d'autres comptes clients PAYDUNYA à part
     end
 
 ## Télécharger une application exemple Ruby on Rails
-https://github.com/paydunya/paydunya_rails_demo_store
+https://github.com/paydunya/paydunya-rails-demo-store
 
 ## Contribuer
 
