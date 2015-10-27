@@ -1,4 +1,4 @@
-# PAYDUNYA - Client Ruby API
+PAYDUNYA - Client Ruby API
 ============================
 PAYDUNYA Client Ruby
 
