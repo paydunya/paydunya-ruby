@@ -128,9 +128,9 @@ module Paydunya
       def create_response(result={})
         if result["response_code"] == "00"
           @token = result["token"]
-          @response_text = result["response_description"]
+          @response_text = result["response_text"]
           @response_code = result["response_code"]
-          @invoice_url = result["response_text"]
+          @invoice_url = result["invoice_token"] || result["response_text"]
           @status = Paydunya::SUCCESS
           true
         else
