@@ -3,7 +3,7 @@ module Paydunya
     class Invoice < Paydunya::Checkout::Core
 
       attr_accessor :items, :total_amount, :taxes, :description, :currency, :store
-      attr_accessor :customer, :custom_data, :cancel_url, :return_url, :invoice_url, :receipt_url
+      attr_accessor :customer, :custom_data, :cancel_url, :return_url, :callback_url, :invoice_url, :receipt_url
 
       def initialize
         @items = {}
@@ -15,6 +15,7 @@ module Paydunya
         @store = Paydunya::Checkout::Store
         @return_url = @store.return_url
         @cancel_url = @store.cancel_url
+        @callback_url = @store.callback_url
       end
 
       # Adds invoice items to the @items hash, the idea is to allow this function to be used in a loop
@@ -109,7 +110,8 @@ module Paydunya
         :custom_data => @custom_data,
         :actions => {
           :cancel_url => @cancel_url,
-          :return_url => @return_url
+          :return_url => @return_url,
+          :callback_url => @callback_url
         }
       }
       end

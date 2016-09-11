@@ -9,6 +9,7 @@ module Paydunya
       @@logo_url = nil
       @@cancel_url = nil
       @@return_url = nil
+      @@callback_url = nil
 
       def self.name=(name); @@name = name; end
       def self.name; @@name; end
@@ -26,6 +27,8 @@ module Paydunya
       def self.cancel_url; @@cancel_url; end
       def self.return_url=(return_url); @@return_url = return_url; end
       def self.return_url; @@return_url; end
+      def self.callback_url=(callback_url); @@callback_url = callback_url; end
+      def self.callback_url; @@callback_url; end
     end
   end
 end
