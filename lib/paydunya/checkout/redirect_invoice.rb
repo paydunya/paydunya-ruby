@@ -8,6 +8,7 @@ module Paydunya
       def initialize
         @items = {}
         @taxes = {}
+        @channels = []
         @custom_data = {}
         @customer = {}
         @total_amount = 0.0
@@ -39,6 +40,17 @@ module Paydunya
             :amount => amount
           }
         })
+      end
+
+      def add_channel(channel)
+        @channels << channel
+      end
+
+      def add_channels(channels)
+        @channels = []
+        channels.each do |channel|
+          @channels << channel
+        end
       end
 
       def add_custom_data(key,value)
@@ -96,6 +108,7 @@ module Paydunya
         { :invoice => {
           :items => @items,
           :taxes => @taxes,
+          :channels => @channels,
           :total_amount => @total_amount,
           :description => description
         },
