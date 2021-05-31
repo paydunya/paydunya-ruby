@@ -17,6 +17,7 @@ Gem::Specification.new do |gem|
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
   gem.require_paths = ["lib"]
+  gem.add_development_dependency('awesome_print')
   gem.add_dependency('faraday', '~> 0.9.0')
   gem.add_dependency('faraday_middleware', '~> 0.9', '>= 0.9.1')
   gem.add_dependency('multi_json', '~> 1.10', '>= 1.10.1')
@@ -24,4 +25,5 @@ Gem::Specification.new do |gem|
   gem.add_dependency('rspec')
   gem.add_development_dependency('rake', '~> 10.2', '>= 10.2.2')
   gem.add_development_dependency('simplecov')
+  gem.add_development_dependency 'webmock'
 end
