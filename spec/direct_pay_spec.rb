@@ -1,9 +1,8 @@
 require 'spec_helper'
 
-describe Paydunya::Utilities do
-  let(:utilities) { Class.new { extend Paydunya::Utilities } }
-
+describe Paydunya::DirectPay do
   before do
+    @direct_pay = Paydunya::DirectPay.new
     Paydunya::Setup.master_key = fake_access_keys[:master_key]
     Paydunya::Setup.public_key = fake_access_keys[:public_key]
     Paydunya::Setup.private_key = fake_access_keys[:private_key]
@@ -19,26 +18,25 @@ describe Paydunya::Utilities do
                  'PAYDUNYA-MODE' => 'test' }
   end
 
-  it 'should send a post request and return data given an URL and payload' do
-    fake_url = 'https://fake.paydunya.com/'
-    stub_request(:post, fake_url)
+  it 'should credit user account' do
+    stub_request(:post, urls[:test_direct_pay_credit_base_url])
       .with(
-        body: '{}',
+        body: '{"account_alias":"email@exemple.com","amount":2000}',
         headers: fake_headers
       )
-      .to_return(body: '{}', status: 200, headers: {})
-    response = utilities.http_json_request(fake_url, {})
-    expect(response).to eq({})
+      .to_return(body: '{"response_code": "00"}', status: 200, headers: {})
+    success = @direct_pay.credit_account('email@exemple.com', 2000)
+    expect(success).to be_truthy
   end
 
-  it 'should send a get request and return some data given a URL' do
-    fake_url = 'https://fake.paydunya.com/'
-    stub_request(:get, fake_url)
+  it 'should not credit user account' do
+    stub_request(:post, urls[:test_direct_pay_credit_base_url])
       .with(
+        body: '{"account_alias":"email@exemple.com","amount":0}',
         headers: fake_headers
       )
-      .to_return(body: '{}', status: 200, headers: {})
-    response = utilities.http_get_request(fake_url)
-    expect(response).to eq({})
+      .to_return(body: '{"response_code": "01"}', status: 200, headers: {})
+    success = @direct_pay.credit_account('email@exemple.com', 0)
+    expect(success).to be_falsey
   end
 end

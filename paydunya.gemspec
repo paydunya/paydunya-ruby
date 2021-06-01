@@ -20,6 +20,7 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency('awesome_print')
   gem.add_dependency('faraday', '~> 0.9.0')
   gem.add_dependency('faraday_middleware', '~> 0.9', '>= 0.9.1')
+  gem.add_dependency('guard-rspec')
   gem.add_dependency('multi_json', '~> 1.10', '>= 1.10.1')
   gem.add_dependency('rest-client', '~> 1.7', '>= 1.7.2')
   gem.add_dependency('rspec')

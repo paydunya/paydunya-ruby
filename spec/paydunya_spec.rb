@@ -8,4 +8,8 @@ describe Paydunya do
     expect(Paydunya::FAIL).to eq 'fail'
     expect(Paydunya::PENDING).to eq 'pending'
   end
+
+  it 'should have a version number' do
+    expect(Paydunya::VERSION).to be
+  end
 end

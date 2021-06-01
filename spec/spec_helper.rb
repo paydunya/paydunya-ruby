@@ -3,7 +3,7 @@ require 'simplecov'
 require 'webmock/rspec'
 require 'awesome_print'
 
-SimpleCov.minimum_coverage 70
+SimpleCov.minimum_coverage 99
 SimpleCov.maximum_coverage_drop 25
 
 Bundler.setup
