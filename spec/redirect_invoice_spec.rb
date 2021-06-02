@@ -79,7 +79,8 @@ describe Paydunya::Checkout::Invoice do
         headers: fake_headers
       )
       .to_return(body: fake_success_response, status: 200, headers: {})
-    @invoice.create
+    success = @invoice.create
+    expect(success).to be_truthy
   end
 
   it 'should confirm the invoice and return false' do

@@ -21,7 +21,7 @@ describe Paydunya::DirectPay do
   it 'should credit user account' do
     stub_request(:post, urls[:test_direct_pay_credit_base_url])
       .with(
-        body: '{"account_alias":"email@exemple.com","amount":2000}',
+        body: { account_alias: 'email@exemple.com', amount: 2000 },
         headers: fake_headers
       )
       .to_return(body: '{"response_code": "00"}', status: 200, headers: {})
@@ -32,11 +32,11 @@ describe Paydunya::DirectPay do
   it 'should not credit user account' do
     stub_request(:post, urls[:test_direct_pay_credit_base_url])
       .with(
-        body: '{"account_alias":"email@exemple.com","amount":0}',
+        body: { account_alias: 'email@exemple.com', amount: 2000 },
         headers: fake_headers
       )
       .to_return(body: '{"response_code": "01"}', status: 200, headers: {})
-    success = @direct_pay.credit_account('email@exemple.com', 0)
+    success = @direct_pay.credit_account('email@exemple.com', 2000)
     expect(success).to be_falsey
   end
 end

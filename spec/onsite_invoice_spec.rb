@@ -13,7 +13,7 @@ describe Paydunya::Onsite::Invoice do
   it 'Should charge the customer and return true on success' do
     stub_request(:post, urls[:test_opr_charge_base_url])
       .with(
-        body: '{"token":"TOKEN_PSR","confirm_token":"CODE_DE_CONFIRMATION_DU_CLIENT"}',
+        body: { token: 'TOKEN_PSR', 'confirm_token': 'CODE_DE_CONFIRMATION_DU_CLIENT' },
         headers: fake_headers
       )
       .to_return(body: fake_success_response, status: 200, headers: {})
@@ -24,7 +24,7 @@ describe Paydunya::Onsite::Invoice do
   it 'Should charge the customer and return false on error' do
     stub_request(:post, urls[:test_opr_charge_base_url])
       .with(
-        body: '{"token":"TOKEN_PSR","confirm_token":"CODE_DE_CONFIRMATION_DU_CLIENT"}',
+        body: { token: 'TOKEN_PSR', 'confirm_token': 'CODE_DE_CONFIRMATION_DU_CLIENT' },
         headers: fake_headers
       )
       .to_return(body: fake_error_response, status: 200, headers: {})
@@ -45,8 +45,8 @@ describe Paydunya::Onsite::Invoice do
       )
       .to_return(body: fake_success_response, status: 200, headers: {})
     success = @invoice.create(fake_account_alias)
-    expect(success).to be_truthy 
-    expect(@invoice.status).to eq Paydunya::SUCCESS 
+    expect(success).to be_truthy
+    expect(@invoice.status).to eq Paydunya::SUCCESS
   end
 
   it 'Should failed creating a onsite invoice' do

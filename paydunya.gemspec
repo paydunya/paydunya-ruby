@@ -1,30 +1,32 @@
-# -*- encoding: utf-8 -*-
-lib = File.expand_path('../lib', __FILE__)
+# frozen_string_literal: true
+
+lib = File.expand_path('lib', __dir__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'paydunya/version'
 
-Gem::Specification.new do |gem|
-  gem.name          = "paydunya"
-  gem.version       = Paydunya::VERSION
-  gem.author       = "PAYDUNYA"
-  gem.email         = ["paydunya@paydunya.com"]
-  gem.description   = %q{Ruby library for integrating with the PAYDUNYA Gateway}
-  gem.summary       = %q{Ruby client bindings for the PAYDUNYA API}
-  gem.homepage      = "https://paydunya.com/developers/ruby"
-  gem.post_install_message = "Thanks for installing PAYDUNYA Ruby client.\nYou may read full API docs at https://paydunya.com/developers/ruby"
+Gem::Specification.new do |spec|
+  spec.name          = 'paydunya'
+  spec.version       = Paydunya::VERSION
+  spec.author = 'PAYDUNYA'
+  spec.email         = ['paydunya@paydunya.com']
+  spec.description   = 'Ruby library for integrating with the PAYDUNYA Gateway'
+  spec.summary       = 'Ruby client bindings for the PAYDUNYA API'
+  spec.homepage      = 'https://paydunya.com/developers/ruby'
+  spec.post_install_message = "Thanks for installing PAYDUNYA Ruby client.\nYou may read full API docs at https://paydunya.com/developers/ruby"
+  spec.required_ruby_version = '>= 3.0'
+  spec.files = Dir['README.md', 'lib/**/*']
+  spec.executables   = spec.files.grep(%r{^bin/}).map { |f| File.basename(f) }
+  spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
+  spec.require_paths = ['lib']
+  spec.license       = 'MIT'
+  # Dependencies
+  spec.add_dependency('faraday', '~> 1.4', '>= 1.4.2')
 
-  gem.files         = `git ls-files`.split($/)
-  gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
-  gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
-  gem.require_paths = ["lib"]
-  gem.add_development_dependency('awesome_print')
-  gem.add_dependency('faraday', '~> 0.9.0')
-  gem.add_dependency('faraday_middleware', '~> 0.9', '>= 0.9.1')
-  gem.add_dependency('guard-rspec')
-  gem.add_dependency('multi_json', '~> 1.10', '>= 1.10.1')
-  gem.add_dependency('rest-client', '~> 1.7', '>= 1.7.2')
-  gem.add_dependency('rspec')
-  gem.add_development_dependency('rake', '~> 10.2', '>= 10.2.2')
-  gem.add_development_dependency('simplecov')
-  gem.add_development_dependency 'webmock'
+  # Dev Dependencies
+  spec.add_development_dependency('awesome_print')
+  spec.add_development_dependency('guard-rspec')
+  spec.add_development_dependency('rake')
+  spec.add_development_dependency('rspec')
+  spec.add_development_dependency('simplecov')
+  spec.add_development_dependency 'webmock'
 end

@@ -51,6 +51,17 @@ module InvoiceHelpers
     'test_Jh2T8skw1j'
   end
 
+  def fake_store
+    {
+      name: 'NOM_DE_VOTRE_ENTREPRISE',
+      tagline: 'SLOGAN_DE_VOTRE_ENTREPRISE',
+      postal_address: 'ADRESSE_DE_VOTRE_ENTREPRISE',
+      phone_number: 'NUMERO_DE_TELEPHONE_DE_VOTRE_ENTREPRISE',
+      website_url: 'URL_DU_SITE_WEB_DE_VOTRE_ENTREPRISE',
+      logo_url: 'URL_DU_LOGO_DE_VOTRE_ENTREPRISE'
+    }
+  end
+
   def fake_success_response
     '{
         "response_code": "00",

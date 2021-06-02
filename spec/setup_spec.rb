@@ -20,51 +20,51 @@ describe Paydunya::Setup do
   end
 
   it 'should return the ROOT_URL_BASE' do
-    expect(Paydunya::Setup::ROOT_URL_BASE).to eq urls[:root_url]
+    expect(Paydunya::Setup.root_url).to eq urls[:root_url]
   end
 
   it 'should return LIVE_CHECKOUT_INVOICE_BASE_URL' do
     Paydunya::Setup.mode = 'live'
-    expect(Paydunya::Setup.checkout_base_url).to eq urls[:live_checkout_base_url]
+    expect(urls[:live_checkout_base_url]).to include Paydunya::Setup.checkout_base_url
   end
 
   it 'should return TEST_CHECKOUT_INVOICE_BASE_URL' do
-    expect(Paydunya::Setup.checkout_base_url).to eq urls[:test_checkout_base_url]
+    expect(urls[:test_checkout_base_url]).to include Paydunya::Setup.checkout_base_url
   end
 
   it 'should return LIVE_CHECKOUT_CONFIRM_BASE_URL' do
     Paydunya::Setup.mode = 'live'
-    expect(Paydunya::Setup.checkout_confirm_base_url).to eq urls[:live_checkout_confirm_base_url]
+    expect(urls[:live_checkout_confirm_base_url]).to include Paydunya::Setup.checkout_confirm_base_url
   end
 
   it 'should return TEST_CHECKOUT_CONFIRM_BASE_URL' do
-    expect(Paydunya::Setup.checkout_confirm_base_url).to eq urls[:test_checkout_confirm_base_url]
+    expect(urls[:test_checkout_confirm_base_url]).to include Paydunya::Setup.checkout_confirm_base_url 
   end
 
   it 'should return LIVE_OPR_BASE_URL' do
     Paydunya::Setup.mode = 'live'
-    expect(Paydunya::Setup.opr_base_url).to eq urls[:live_opr_base_url]
+    expect(urls[:live_opr_base_url]).to include Paydunya::Setup.opr_base_url
   end
 
   it 'should return TEST_OPR_BASE_URL' do
-    expect(Paydunya::Setup.opr_base_url).to eq urls[:test_opr_base_url]
+    expect(urls[:test_opr_base_url]).to include Paydunya::Setup.opr_base_url
   end
 
   it 'should return LIVE_OPR_CHARGE_BASE_URL' do
     Paydunya::Setup.mode = 'live'
-    expect(Paydunya::Setup.opr_charge_base_url).to eq urls[:live_opr_charge_base_url]
+    expect(urls[:live_opr_charge_base_url]).to include Paydunya::Setup.opr_charge_base_url
   end
 
   it 'should return TEST_OPR_CHARGE_BASE_URL' do
-    expect(Paydunya::Setup.opr_charge_base_url).to eq urls[:test_opr_charge_base_url]
+    expect(urls[:test_opr_charge_base_url]).to include Paydunya::Setup.opr_charge_base_url
   end
 
   it 'should return LIVE_DIRECT_PAY_CREDIT_BASE_URL' do
     Paydunya::Setup.mode = 'live'
-    expect(Paydunya::Setup.direct_pay_credit_base_url).to eq urls[:live_direct_pay_credit_base_url]
+    expect(urls[:live_direct_pay_credit_base_url]).to include Paydunya::Setup.direct_pay_credit_base_url
   end
 
   it 'should return TEST_DIRECT_PAY_CREDIT_BASE_URL' do
-    expect(Paydunya::Setup.direct_pay_credit_base_url).to eq urls[:test_direct_pay_credit_base_url]
+    expect(urls[:test_direct_pay_credit_base_url]).to include Paydunya::Setup.direct_pay_credit_base_url
   end
 end
