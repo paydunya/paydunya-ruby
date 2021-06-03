@@ -58,18 +58,22 @@ module Paydunya
       end
 
       def get_items
+        warn '[DEPRECATION] `get_items` is deprecated.  Please use `items` instead.'
         @items
       end
 
       def get_taxes
+        warn '[DEPRECATION] `get_taxes` is deprecated.  Please use `taxes` instead.'
         @taxes
       end
 
       def get_customer_info(key)
+        warn "[DEPRECATION] `get_customer_info(key)` is deprecated.  Please use `customer['some_key]` instead."
         @customer[key.to_s]
       end
 
       def get_custom_data(key)
+        warn "[DEPRECATION] `get_custom_data(key)` is deprecated.  Please use `custom_data['some_key]` instead."
         @custom_data[key.to_s]
       end
 
@@ -141,20 +145,11 @@ module Paydunya
       end
 
       def create_response(result = {})
-        if result['response_code'] == '00'
-          @token = result['token']
-          @response_text = result['response_text']
-          @response_code = result['response_code']
-          @invoice_url = result['invoice_token'] || result['response_text']
-          @status = Paydunya::SUCCESS
-          true
-        else
-          @response_text = result['response_text']
-          @response_code = result['response_code']
-          @invoice_url = nil
-          @status = Paydunya::FAIL
-          false
-        end
+        @response_text = result['response_text']
+        @response_code = result['response_code']
+        @status = result['response_code'] == '00' ? Paydunya::SUCCESS : Paydunya::FAIL
+        @invoice_url = result['response_code'] == '00' ? (result['invoice_token'] || result['response_text']) : nil
+        result['response_code'] == '00'
       end
     end
   end
