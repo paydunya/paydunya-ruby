@@ -5,6 +5,7 @@ module Paydunya
       Faraday.new(url: Paydunya::Setup.root_url,
                   ssl: { verify: false },
                   headers: {
+                    'Content-Type' => 'application/json',
                     'User-Agent' => 'Paydunya Checkout API Ruby client v1 aka Neptune',
                     'PAYDUNYA-PUBLIC-KEY' => Paydunya::Setup.public_key,
                     'PAYDUNYA-PRIVATE-KEY' => Paydunya::Setup.private_key,
@@ -15,7 +16,7 @@ module Paydunya
     end
 
     def send_post_request(url, payload = {})
-      JSON.parse connection.post(url, payload).body
+      JSON.parse connection.post(url, payload.to_json).body
     end
 
     def send_get_request(url, params = nil)
