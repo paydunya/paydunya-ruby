@@ -1,44 +1,26 @@
 module Paydunya
   module Utilities
-    def http_json_request(baseurl,payload={})
-      conn = Faraday.new(:url => baseurl, :ssl => {:verify => false}) do |faraday|
-        faraday.request  :json
-        faraday.adapter  Faraday.default_adapter
-      end
 
-      result = conn.post do |req|
-        req.headers["User-Agent"] = "Paydunya Checkout API Ruby client v1 aka Neptune"
-        req.headers['PAYDUNYA-PUBLIC-KEY'] = Paydunya::Setup.public_key
-        req.headers['PAYDUNYA-PRIVATE-KEY'] = Paydunya::Setup.private_key
-        req.headers['PAYDUNYA-MASTER-KEY'] = Paydunya::Setup.master_key
-        req.headers['PAYDUNYA-TOKEN'] = Paydunya::Setup.token
-        req.headers['PAYDUNYA-MODE'] = Paydunya::Setup.mode
-        req.body = hash_to_json payload
-      end
-      json_to_hash(result.body)
+    def connection
+      Faraday.new(url: Paydunya::Setup.root_url,
+                  ssl: { verify: false },
+                  headers: {
+                    'Content-Type' => 'application/json',
+                    'User-Agent' => 'Paydunya Checkout API Ruby client v1 aka Neptune',
+                    'PAYDUNYA-PUBLIC-KEY' => Paydunya::Setup.public_key,
+                    'PAYDUNYA-PRIVATE-KEY' => Paydunya::Setup.private_key,
+                    'PAYDUNYA-MASTER-KEY' => Paydunya::Setup.master_key,
+                    'PAYDUNYA-TOKEN' => Paydunya::Setup.token,
+                    'PAYDUNYA-MODE' => Paydunya::Setup.mode
+                  })
     end
 
-    def http_get_request(baseurl)
-      conn = Faraday.new(:url => baseurl, :ssl => {:verify => false})
-
-      result = conn.get do |req|
-        req.headers["User-Agent"] = "Paydunya Checkout API Ruby client v1 aka Neptune"
-        req.headers['PAYDUNYA-PUBLIC-KEY'] = Paydunya::Setup.public_key
-        req.headers['PAYDUNYA-PRIVATE-KEY'] = Paydunya::Setup.private_key
-        req.headers['PAYDUNYA-MASTER-KEY'] = Paydunya::Setup.master_key
-        req.headers['PAYDUNYA-TOKEN'] = Paydunya::Setup.token
-        req.headers['PAYDUNYA-MODE'] = Paydunya::Setup.mode
-      end
-
-      json_to_hash(result.body)
+    def send_post_request(url, payload = {})
+      JSON.parse connection.post(url, payload.to_json).body
     end
 
-    def hash_to_json(params={})
-      MultiJson.dump params
-    end
-
-    def json_to_hash(params={})
-      MultiJson.load params
+    def send_get_request(url, params = nil)
+      JSON.parse connection.get(url, params).body
     end
   end
 end
